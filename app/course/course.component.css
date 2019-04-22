@@ -1,0 +1,11 @@
+.even {
+    background-color: lightskyblue
+}
+
+.odd {
+    background-color: gray
+}
+
+.btn-map, .btn-list {
+    margin: 2px
+}

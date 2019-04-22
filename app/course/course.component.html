@@ -1,0 +1,95 @@
+<h3>Consuming Services</h3>
+<h3>{{ title }}</h3> <!-- string interpolation, best used for rendering text -->
+<ul> 
+  <li *ngFor="let course of courses">
+    {{ course.name }}
+  </li>
+</ul>
+<h3>Class Binding</h3>
+<button class="btn btn-primary" [class.active]="isActive">Save</button> <!-- class binding -->
+<h3>Style Binding</h3>
+<button [style.backgroundColor]="isActive ? 'blue' : 'white'">Save2</button> <!-- style binding -->
+<h3>Event Binding</h3>
+<div (click)="onDivClicked()">
+  <button (click)="onSave($event)">Save3</button> <!-- event binding -->
+</div>
+<h3>Event Filter & Two-Way Binding</h3>
+<h4>One-way Binding</h4>
+<input [value]="email" (keyup.enter)="onKeyUp()" /> <!-- one-way binding -->
+<h4>Two-way Binding</h4>
+<input [(ngModel)]="email" (keyup.enter)="onKeyUp()" /> <!-- two-way binding -->
+
+<br/><br/>
+
+<h3>Property Binding</h3>
+<img [src]="imageUrl" /> <!-- property binding -->
+
+<table>
+  <tr>
+    <td [attr.colspan]="colSpan"> <!-- attribute binding, used in cases where HTML attribute does not exist as DOM property -->
+      <h3>Attribute Binding</h3>
+    </td>
+  </tr>
+</table>
+
+<h3>Pipes</h3>
+{{ courseExample.title | uppercase | lowercase }} <br/>
+{{ courseExample.students | number }} <br/>
+<table>
+  <tr>
+    <td>Raw Rating: {{ courseExample.rating }}</td>
+  </tr>
+  <tr>
+    <td>Rating (1.1-1): {{ courseExample.rating | number:"1.1-1" }}</td>
+  </tr>
+  <tr>
+    <td>Rating (1.2-2): {{ courseExample.rating | number:"1.2-2" }}</td>
+  </tr>
+  <tr>
+    <td>Rating (2.1-2): {{ courseExample.rating | number:"2.1-2" }}</td>
+  </tr>
+</table>
+{{ courseExample.price | currency:'USD':'symbol':'1.2-2' }} <br/>
+{{ courseExample.releaseDate | date:'fullDate' }} <br/>
+
+<h3>Custom Pipes</h3>
+<div (click)="onVeryLongTextClicked()" >{{ veryLongText | summary:summaryLength }}</div> 
+
+<div>
+    <h3>ngSwitchCase</h3> <!-- ngSwitchCase, best used when there are more than 2 possible values; otherwise use ngIf-->
+    <button class="btn btn-primary btn-map" [class.active]="viewStyle=='map'" (click)="viewStyle='map'">Map View</button>
+    <button class="btn btn-primary btn-list" [class.active]="viewStyle=='list'" (click)="viewStyle='list'">List View</button>
+    <div [ngSwitch]="viewStyle">
+        <div *ngSwitchCase="'map'">This is a map view</div>
+        <div *ngSwitchCase="'list'">This is a list view</div>
+        <div *ngSwitchDefault>This is the DEFAULT view</div>
+    </div>
+</div>
+
+<h3>ngFor applied to table</h3>
+<table>
+  <tr>
+    <th style="width: 50px">ID</th>
+    <th>Name</th>
+  </tr>
+  <tr *ngFor="let course of courses; even as isEven">
+    <td [class.even]="isEven" [class.odd]="!isEven">{{ course.id }}</td>
+    <td [class.even]="isEven" [class.odd]="!isEven">{{ course.name }}</td>
+  </tr>
+</table>
+
+<br/><br/>
+<h3>ngFor & ngIf and Change Detection</h3>
+<input [value]="'New Course'" [(ngModel)]="courseAddInput" (keyup.enter)="onAddCourse()" />
+<span *ngIf="courses.length > 0; then coursesList else noCourses"></span>
+<ng-template #coursesList>
+  <ul>
+    <li *ngFor="let course of courses">
+      {{ course.name }} (ID:{{ course.id }})    
+      <button (click)="onRemoveCourse(course)">Remove</button>
+    </li>
+  </ul>
+</ng-template>
+<ng-template #noCourses>
+  <br/>No courses
+</ng-template>

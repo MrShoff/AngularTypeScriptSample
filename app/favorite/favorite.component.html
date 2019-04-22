@@ -1,0 +1,21 @@
+
+<link href="https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css" rel="stylesheet">
+
+
+<h2>Favorite</h2>
+<h3>Input & Output Properties</h3>
+<span
+    class="icon"
+    [class.ion-md-heart]="isSelected"
+    [class.ion-md-heart-empty]="!isSelected"
+    (click)="onClick()"
+    ></span>
+<h3>Using ngClass Directive</h3>
+<span
+    class="icon"
+    [ngClass]="{
+        'ion-md-heart': isSelected,
+        'ion-md-heart-empty': !isSelected
+    }"
+    (click)="onClick()"
+    ></span>
